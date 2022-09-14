@@ -23,3 +23,4 @@
 | Project name | Student name |
 | --- | --- |
 | [emoji-labeller](/projects/emoji-labeller) | Иванов Иван Иванович |
+| [mansurov-project](/projects/mansurov-project) | Мансуров Юрий Юрьевич |
