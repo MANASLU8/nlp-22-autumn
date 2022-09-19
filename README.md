@@ -12,9 +12,10 @@
 
 - [Сегментация и аннотация текста](/tasks/task-01/README.md)
 - [Исправление опечаток](/tasks/task-02/README.md)
-- [Векторизация текста](/tasks/task-03/README.md)
-- [Тематическое моделирование](/tasks/task-04/README.md)
-- [Классификация текстов](/tasks/task-05/README.md)
+- [N-grams](/tasks/task-03/README.md)
+- [Векторизация текста](/tasks/task-04/README.md)
+- [Тематическое моделирование](/tasks/task-05/README.md)
+- [Классификация текстов](/tasks/task-06/README.md)
 
 ## Результаты выполнения лабораторных работ
 
