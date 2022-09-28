@@ -1,6 +1,6 @@
 import unittest
 
-from ..tokenization.tokenizer import tokenize
+from tokenization.tokenizer import tokenize
 
 class TestTokenization(unittest.TestCase):
     def test_on_empty_string(self):
@@ -17,10 +17,11 @@ class TestTokenization(unittest.TestCase):
                          tokenize("foo\tbar\nbaz    qux\t\t\t\nquux"))
 
     def test_on_email_hosts(self):
-        self.assertEqual(["wes!ton@uc!ssun1.sdsu.edu", "obelix.gaul.csd.u!wo.ca", "1pr9qnI.NNiag@tahko.lpr.carel.fi"],
+        self.assertEqual(["wes!ton@uc!ssun1.sdsu.edu", "obelix.gaul.csd.u!wo.ca",
+                          "1pr9qnI.NNiag@tahko.lpr.carel.fi"],
                          tokenize("wes!ton@uc!ssun1.sdsu.edu "
                                   "obelix.gaul.csd.u!wo.ca "
-                                  "1pr9qnI.NNiag@tahko.lpr.carel.fi"))
+                                  "1pr9qnI.NNiag@tahko.lpr.carel.fi "))
 
     def test_on_names(self):
         self.assertEqual(["Aaron Johnson", "Henry A. Neill", "Obi-Wan Kenobi", "Michael B Jordan-Bordan"],
