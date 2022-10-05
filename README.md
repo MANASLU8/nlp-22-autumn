@@ -22,4 +22,4 @@
 
 | Project name | Student name |
 | --- | --- |
-| [emoji-labeller](/projects/emoji-labeller) | Иванов Иван Иванович |
+| [nlp-22-autumn](/labs/lab1) | Петренко Дмитрий Андреевич |
