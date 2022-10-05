@@ -22,4 +22,4 @@
 
 | Project name | Student name |
 | --- | --- |
-| [nlp-22-autumn](/labs/lab1) | Петренко Дмитрий Андреевич |
+| [nlp-22-autumn](/tasks/task-1) | Петренко Дмитрий Андреевич |
