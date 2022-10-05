@@ -28,12 +28,14 @@ class TestTokenization(unittest.TestCase):
                         tokenize("Aaron Johnson    Henry A. Neill      Obi-Wan Kenobi     Michael B Jordan-Bordan"))
 
     def test_on_companies(self):
-        self.assertEqual(["Ford Motor Company", "School of EECS", "University of Illinois at Urbana"],
-                         tokenize("Ford Motor Company   School of EECS  University of Illinois at Urbana"))
+        self.assertEqual(["Ford Motor Company", "School of EECS", "University of Illinois"],
+                         tokenize("Ford Motor Company   School of EECS  University of Illinois"))
 
     def test_on_phone_numbers(self):
-        self.assertEqual(["+34 1 336-7448", "+7 (921) 662-07 74", "8 921 548 72 72", "(503) 629-7605",
-                          "8 921 6620774", "8 921 662 0774", "+41-21-6934290"],
+        self.assertEqual(["+34 1 336-7448", "+7 (921) 662-07 74",
+                          "8 921 548 72 72", "(503) 629-7605",
+                          "8 921 6620774", "8 921 662 0774",
+                          "+41-21-6934290"],
                          tokenize("+34 1 336-7448 "
                                   "+7 (921) 662-07 74 "
                                   " 8 921 548 72 72"
@@ -45,6 +47,14 @@ class TestTokenization(unittest.TestCase):
     def test_on_date(self):
         self.assertEqual(["25th June 1993", "30th Sep", "Dec 9th 2003", "Nov 25 1999", "25 Nov 99"],
                          tokenize("25th June 1993 30th Sep Dec 9th 2003 Nov 25 1999 25 Nov 99"))
+
+    def test_on_multipoint(self):
+        self.assertEqual(['Afwafw', 'him', '...', '🍰',  'Roger'],
+                         tokenize("Afwafw him...Roger"))
+
+    def test_on_time(self):
+        self.assertEqual(['02:05:01'],
+                         tokenize("02:05:01"))
 
 if __name__ == "__main__":
         unittest.main()
