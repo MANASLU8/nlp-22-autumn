@@ -24,4 +24,5 @@
 | Project name | Student name |
 | --- | --- |
 | [emoji-labeller](/projects/emoji-labeller) | Иванов Иван Иванович |
+| [mansurov-project](/projects/mansurov-project) | Мансуров Юрий Юрьевич |
 | [cake-crusher](/projects/cake-crusher) | Черноусов Евгений Александрович |
