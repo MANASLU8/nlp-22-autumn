@@ -10,10 +10,11 @@ ____
 conda env create -f assets/environment.yml
 conda activate cake-crusher
 ```
-## Запуск проекта
+# Запуск проекта
 ____
-### Токенизация текстовых файлов
+## 1. Токенизатор текстовых файлов (+ стемматизация, лемматизация)
 ____
+
 С целью токенизации датасета требуется выполнить следующую команду из корневой директории проекта:
 
 `PYTHONPATH=source python full/path/to/dataset`
@@ -41,7 +42,7 @@ ____
 Windows:
 ```
 set PYTHONPATH=./source
-python source/tests/test_tokenizer.py
+python source/tokenization/tests/test_tokenizer.py
 ```
 
 Система отображает стандартный отчет о результатах выполнения тестов:
@@ -51,4 +52,36 @@ python source/tests/test_tokenizer.py
 Ran 9 tests in 0.005s
 
 OK
+```
+## 2. Исправитель опечаток
+____
+Модуль использует алгоритм Левенштейна для поиска редакционного расстояния. 
+Учитывается расстояние между буквами при ипользовании раскладки `QWERTY`.
+### 2.1 Создание словаря
+Чтобы создать словарь, необходимо запустить программу `dict-creator.py`.
+Словарь создается на основе tsv файлов, сгенерированных модулем токенизации. 
+Уже готовый словарь находится по пути `assets/dictionary.txt`
+Можно сократить словарь, запустив скрипт `dict-cleaner.py`.
+Результат работы:
+`The dictionary has: 150015 tokens`
+### 2.2 Запуск корректора
+Найти и сохранить невыравненные файлы, запустив `typos-fixer/unaligned_finder.py`.
+Необходимо запустить программу `typos-fixer/__main__.py`. Скорректированные токены записываются в директорию 
+`assets/annotated-corpus/corrected_test` в виде tsv файлов.
+### 2.3 Тестирование модуля исправления опечаток
+Windows:
+```
+set PYTHONPATH=./source
+python source/typos_fixer/tests/typos-fixer-test.py
+```
+### 2.4 Оценка модуля исправления опечаток
+Необходимо запустить скрипт `evaluator.py`. Программа выдает отчет об исправлении опечаток:
+```
+Corrected files count is 296
+Test tokens count is 56983
+Corrupted tokens count is 9957
+Corrupted tokens in corrupted set: 17.473632486882053
+Corrected tokens count is 5044
+Corrupted tokens in corrected set: 9.401049435796642
+Difference is 8.072583051085411
 ```
