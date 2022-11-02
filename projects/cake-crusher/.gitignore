@@ -2,4 +2,4 @@
 dataset
 venv
 **/*.pyc
-assets/annotated-corpus
+assets
