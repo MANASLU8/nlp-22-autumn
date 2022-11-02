@@ -44,7 +44,7 @@ freq_df.to_csv('../../assets/freq_matrix')
 freq_df = pd.read_csv('../../assets/freq_matrix')
 print(freq_df)
 
-# Матрица tf-idf  (как считать? что tf, что df? для чего нужен общий tf в словаре?)
+# Матрица tf-idf
 tf_idf_df = pd.read_csv('../../assets/freq_matrix')
 with open("../../assets/token_list_by_file", "rb") as file:
     token_list_by_file = pickle.load(file)
