@@ -20,17 +20,23 @@ list_of_dicts = [research, car, software]
 
 for word_dict in list_of_dicts:
     result = {'word': word_dict['word'], 'similar': dict(), 'same_field': dict(), 'different': dict()}
-
+    annotations = []
+    vector = []
+    main_word = word_dict['word']
+    annotations.append(main_word)
+    vect_main_word = model.wv[main_word].tolist()
+    vector.append(vect_main_word)
     for i in range(0, 2):
-        main_word = word_dict['word']
         similar_word = word_dict['similar'][i]
         field_word = word_dict['same_field'][i]
         different_word = word_dict['different'][i]
+        annotations.extend([similar_word, field_word, different_word])
 
         vect_main_word = model.wv[main_word].tolist()
         vect_similar_word = model.wv[similar_word].tolist()
         vect_field_word = model.wv[field_word].tolist()
         vect_different_word = model.wv[different_word].tolist()
+        vector.extend([vect_similar_word, vect_field_word, vect_different_word])
 
         sim = cos_sim(vect_main_word, vect_similar_word)
         result['similar'][similar_word] = sim
@@ -44,24 +50,11 @@ for word_dict in list_of_dicts:
     result['different'] = dict(sorted(result['different'].items(), key=lambda x: x[1], reverse=True))
     print(result)
 
-main_word = 'research'
-similar_word = 'scientific'
-field_word = 'analysis'
-different_word = 'fish'
-vect_main_word = model.wv[main_word].tolist()
-vect_similar_word = model.wv[similar_word].tolist()
-vect_field_word = model.wv[field_word].tolist()
-vect_different_word = model.wv[different_word].tolist()
-X = [vect_main_word, vect_similar_word, vect_field_word, vect_different_word]
-print(X)
-pca = PCA(n_components=2)
-composed = pca.fit_transform(X)
-print(composed)
-
-annotations=[main_word, similar_word, field_word, different_word]
-X = composed[:, 0]
-Y = composed[:, 1]
-plt.scatter(X, Y, color="red")
-for i, label in enumerate(annotations):
-    plt.annotate(label, (X[i], Y[i]))
-plt.show()
+    pca = PCA(n_components=2)
+    composed = pca.fit_transform(vector)
+    X = composed[:, 0]
+    Y = composed[:, 1]
+    plt.scatter(X, Y, color="red")
+    for i, label in enumerate(annotations):
+        plt.annotate(label, (X[i], Y[i]))
+    plt.show()
