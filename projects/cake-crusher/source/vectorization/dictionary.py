@@ -1,15 +1,15 @@
 import pickle
 import os
 import re
-import nltk
-nltk.download('stopwords', quiet=True)
-from nltk.corpus import stopwords
 import copy
 import pandas as pd
+import nltk
+from nltk.corpus import stopwords
+nltk.download('stopwords', quiet=True)
 
 stops = set(stopwords.words("english"))
 
-# сreating dictionary
+# creating dictionary
 data_path = '../../assets/annotated-corpus/'
 dictionary = dict()
 count = 0
@@ -54,7 +54,6 @@ with open("../../assets/cropped_dictionary", "rb") as file:
 #
 # print(cropped_dictionary)
 # print(len(cropped_dictionary))
-
 
 
 with open("../../assets/token_list_by_file", "rb") as file:
