@@ -1,5 +1,12 @@
 import re
 from source.tokenization.tokenizer import tokenize
+from numpy import dot
+from numpy.linalg import norm
+from numpy import round
+
+def cos_sim(a, b):
+    cos_sim = dot(a, b) / (norm(a) * norm(b))
+    return round(cos_sim, 2)
 
 def text_by_sentence_tokenize(text: str):
     token_list = tokenize(text)

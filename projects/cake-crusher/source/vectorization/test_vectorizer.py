@@ -10,9 +10,10 @@ for category in os.listdir(test_path):
         count += 1
         with open(test_path + category + '/' + filename) as file:
             vector = w2vec_vectorize(file.read())
-            print(vector)
+            #print(vector)
             embedding_str = ""
             for embedding in vector:
-                embedding_str = '\t' + str(embedding)
-            with open('../../assets/test_vectorized.tsv', 'w') as result_file:
+                embedding_str += '\t' + str(round(embedding, 6))
+            print(category + '/' + filename + embedding_str + '\n')
+            with open('../../assets/test_vectorized.tsv', 'a') as result_file:
                 result_file.write(category + '/' + filename + embedding_str + '\n')

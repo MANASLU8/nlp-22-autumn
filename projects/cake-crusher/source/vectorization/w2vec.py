@@ -77,10 +77,12 @@ def w2vec_vectorize(text: str):
     return vector
 
 # model fitting
-sentences = MyCorpus(sentence_list_by_file)
-model = gensim.models.Word2Vec(sentences=sentences)
-print('Model trained!')
-model.save('../../assets/w2v_model')
+# # sentences = MyCorpus(sentence_list_by_file)
+# # model = gensim.models.Word2Vec(sentences=sentences, window=10, vector_size=100, epochs=5)
+# # print('Model trained!')
+# model.save('../../assets/w2v_model')
+model = gensim.models.Word2Vec.load('../../assets/w2v_model')
+
 #print(model.wv['hello'])
 # for index, word in enumerate(model.wv.index_to_key):
 #     print(f"word #{index}/{len(model.wv.index_to_key)} is {word}")
