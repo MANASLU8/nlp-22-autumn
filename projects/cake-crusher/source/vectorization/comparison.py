@@ -35,5 +35,5 @@ for i, j in zip(sentences1, sentences2):
     custom_sim = cos_sim(custom1, custom2)
     w2vec_sim = cos_sim(w2vec1, w2vec2)
 
-    print(f'{index}. time: {custom_mean_time} sec %% Custom cosine similarity is {custom_sim}')
-    print(f'{index}. time: {w2vec_mean_time} sec %% Word2vec cosine similarity is {w2vec_sim}\n')
+    print(f'Test {index}. time: {custom_mean_time} sec %% Custom cosine similarity is {custom_sim}')
+    print(f'Test {index}. time: {w2vec_mean_time} sec %% Word2vec cosine similarity is {w2vec_sim}\n')
