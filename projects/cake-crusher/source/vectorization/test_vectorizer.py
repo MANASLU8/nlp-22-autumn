@@ -10,7 +10,6 @@ for category in os.listdir(test_path):
         count += 1
         with open(test_path + category + '/' + filename) as file:
             vector = w2vec_vectorize(file.read())
-            #print(vector)
             embedding_str = ""
             for embedding in vector:
                 embedding_str += '\t' + str(round(embedding, 6))

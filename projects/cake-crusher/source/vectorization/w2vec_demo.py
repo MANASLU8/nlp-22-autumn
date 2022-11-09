@@ -14,9 +14,11 @@ software = {'word': 'software', 'similar': ['code', 'hardware'], 'same_field': [
 list_of_dicts = [research, car, software]
 
 
-def infer(model, show: bool):
-    if not model:
+def infer(fitted_model, show: bool):
+    if not fitted_model:
         model = gensim.models.Word2Vec.load('../../assets/w2v_model')
+    else:
+        model = fitted_model
     for word_dict in list_of_dicts:
         result = {'word': word_dict['word'], 'similar': dict(), 'same_field': dict(), 'different': dict()}
         annotations = []

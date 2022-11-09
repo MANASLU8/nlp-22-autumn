@@ -3,7 +3,6 @@ import pandas as pd
 import os
 import re
 import nltk
-import numpy as np
 nltk.download('stopwords', quiet=True)
 from nltk.corpus import stopwords
 
@@ -30,12 +29,11 @@ for category in os.listdir(data_path + set_name):
                         continue
                     token_list.append(token)
         token_list_by_file[category + '/' + filename] = token_list
-                # else:
-                #     token = line
+
 with open("../../assets/token_list_by_file", "wb") as file:
     pickle.dump(token_list_by_file, file)
-with open("../../assets/token_list_by_file", "rb") as file:
-    token_list_by_file = pickle.load(file)
+# with open("../../assets/token_list_by_file", "rb") as file:
+#     token_list_by_file = pickle.load(file)
 print(token_list_by_file)
 
 for filename in token_list_by_file:
@@ -60,18 +58,3 @@ for category in os.listdir(data_path + set_name):
 df.to_csv('../../assets/td_matrix')
 df = pd.read_csv('../../assets/td_matrix')
 print(df)
-
-# matrix = np.zeros((len(token_list_by_file), len(dictionary)), dtype=int)
-# print(matrix)
-# data_path = '../../assets/annotated-corpus/'
-# set_name = 'train'
-# i = -1
-# for category in os.listdir(data_path + set_name):
-#     for filename in os.listdir(data_path + set_name + '/' + category):
-#         i += 1
-#         j = -1
-#         for token in token_list_by_file[category + '/' + filename]:
-#             j += 1
-#             if token == dictionary.keys():
-#                 matrix[i][j] += 1
-# print(matrix)

@@ -10,6 +10,7 @@ nltk.download('stopwords', quiet=True)
 from nltk.corpus import stopwords
 from nltk.collocations import *
 
+
 def main():
     # сreating lemmas list
     data_path = '../../assets/annotated-corpus/'

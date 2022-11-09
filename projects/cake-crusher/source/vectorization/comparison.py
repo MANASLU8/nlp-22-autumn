@@ -6,22 +6,6 @@ import numpy as np
 from util import cos_sim
 from time import time
 
-
-# with open('user_text.txt', 'r') as file:
-#     text = file.read()
-# with open("../../assets/fitted_pca", "rb") as file:
-#     fitted_pca = pickle.load(file)
-# vector = custom_vectorize(text, compressed=False)
-# vector = np.array(vector).reshape(1, -1)
-# compressed_custom_v = fitted_pca.transform(vector)
-# print(compressed_custom_v[0])
-# print(len(compressed_custom_v[0]))
-# w2vec_vectorized_text = w2vec_vectorize(text)
-# result = cos_sim(compressed_custom_v[0], w2vec_vectorized_text)
-# print(result)
-# "Studies show that a speaker is considered to be knowledgeable when they respond immediately.",
-# "Studies demonstrate that a speaker is seen as more intelligent when they give an instant response.",
-
 with open('user_text1.txt', 'r') as file:
     text1 = file.read()
 with open('user_text2.txt', 'r') as file:
@@ -32,6 +16,7 @@ sentences1 = ["We are very accustomed to the art of speaking.",
 sentences2 = ["We are used to the art of communicating.",
               "They favor things that are easy to understand over things that are difficult to make sense of.",
               text2]
+
 index = 0
 for i, j in zip(sentences1, sentences2):
     index += 1

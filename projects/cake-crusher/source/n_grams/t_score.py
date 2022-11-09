@@ -1,5 +1,6 @@
 from math import pow
 
+
 def t_score(threegram, freqs_dict, dictionary):
     n = 3
     count = freqs_dict[threegram]
