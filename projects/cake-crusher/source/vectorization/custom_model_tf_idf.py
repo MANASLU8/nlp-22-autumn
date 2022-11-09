@@ -2,6 +2,7 @@ import os
 import re
 import pickle
 import pandas as pd
+import numpy as np
 from math import log10
 from util import text_by_sentence_tokenize
 
@@ -25,10 +26,10 @@ with open("../../assets/df_cropped_dictionary", "rb") as file:
 #             sentence = []
 # print(sentence_list)
 
-def custom_vectorize(text: str):
+def custom_vectorize(text: str, compressed:bool):
 
     sentence_list = text_by_sentence_tokenize(text)
-    print('tokenized')
+    #print('tokenized')
     # Матрица частот
     freq_df = pd.DataFrame(columns=dictionary.keys())
     for sentence in sentence_list:
@@ -46,7 +47,7 @@ def custom_vectorize(text: str):
                 pass
     # freq_df.to_csv('../../assets/freq_matrix')
     # freq_df = pd.read_csv('../../assets/freq_matrix')
-    print('freq matrix ready')
+    #print('freq matrix ready')
     #print(freq_df)
 
     # Матрица tf-idf
@@ -54,7 +55,7 @@ def custom_vectorize(text: str):
     # with open("../../assets/token_list_by_file", "rb") as file:
     #     token_list_by_file = pickle.load(file)
     N = 11314 #len(token_list_by_file) # общее число документов в train
-    print(N)
+    #print(N)
     #del token_list_by_file
     for index, row in tf_idf_df.iterrows():
         for token in dictionary:
@@ -64,11 +65,16 @@ def custom_vectorize(text: str):
     #print(tf_idf_df)
     # tf_idf_df.to_csv('../../assets/tf_idf_matrix')
     # tf_idf_df = pd.read_csv('../../assets/tf_idf_matrix')
-    print('tf-idf matrix ready')
+    #print('tf-idf matrix ready')
     vectorized_doc = []
     for token in dictionary:
         vectorized_doc.append(round(tf_idf_df[token].mean(), 3))
 
+    if compressed:
+        with open("../../assets/fitted_pca", "rb") as file:
+            fitted_pca = pickle.load(file)
+        vector = np.array(vectorized_doc).reshape(1, -1)
+        vectorized_doc = fitted_pca.transform(vector)[0]
     return vectorized_doc
 
 # vectorized_doc = custom_vectorize("hello world. I love you!")
