@@ -12,32 +12,34 @@ stops = set(stopwords.words("english"))
 with open("../../assets/cropped_dictionary", "rb") as file:
     dictionary = pickle.load(file)
 
-# предложения документов train без стоп-слов и пунктуации для word2vec
-sentence_list_by_file = dict()
-data_path = '../../assets/annotated-corpus/'
-set_name = 'train'
-print('Collecting train sentences...')
-for category in os.listdir(data_path + set_name):
-    for filename in os.listdir(data_path + set_name + '/' + category):
-        sentence_list = []
-        token_list = []
-        with open(data_path + set_name + '/' + category + '/' + filename) as file:
-            for line in file:
-                if line != '\n':
-                    token = re.split(r'\t', line)[0]
-                    # punctuation cleaner
-                    if re.fullmatch(r'[\'!()\\\-\[\]{};@?<>:\",./^&*_|+`%#=~]+', token) \
-                            or token in stops or token not in dictionary:
-                        continue
-                    token_list.append(token)
-                else:
-                    sentence_list.append(token_list)
-                    token_list = []
-        sentence_list_by_file[category + '/' + filename] = sentence_list
-        sentence_list = []
 
-with open("../../assets/sentence_list_by_file", "wb") as file:
-    pickle.dump(sentence_list_by_file, file)
+# предложения документов train без стоп-слов и пунктуации для word2vec
+def make_sentence_list_by_file():
+    sentence_list_by_file = dict()
+    data_path = '../../assets/annotated-corpus/'
+    set_name = 'train'
+    print('Collecting train sentences...')
+    for category in os.listdir(data_path + set_name):
+        for filename in os.listdir(data_path + set_name + '/' + category):
+            sentence_list = []
+            token_list = []
+            with open(data_path + set_name + '/' + category + '/' + filename) as file:
+                for line in file:
+                    if line != '\n':
+                        token = re.split(r'\t', line)[0]
+                        # punctuation cleaner
+                        if re.fullmatch(r'[\'!()\\\-\[\]{};@?<>:\",./^&*_|+`%#=~]+', token) \
+                                or token in stops or token not in dictionary:
+                            continue
+                        token_list.append(token)
+                    else:
+                        sentence_list.append(token_list)
+                        token_list = []
+            sentence_list_by_file[category + '/' + filename] = sentence_list
+            sentence_list = []
+
+    with open("../../assets/sentence_list_by_file", "wb") as file:
+        pickle.dump(sentence_list_by_file, file)
 # with open("../../assets/sentence_list_by_file", "rb") as file:
 #     sentence_list_by_file = pickle.load(file)
 
@@ -79,6 +81,9 @@ def w2vec_vectorize(text: str):
 
 
 # model fitting
+#make_sentence_list_by_file()
+with open("../../assets/sentence_list_by_file", "rb") as file:
+     sentence_list_by_file = pickle.load(file)
 sentences = MyCorpus(sentence_list_by_file)
 model = gensim.models.Word2Vec(sentences=sentences, window=10, vector_size=100, epochs=5)
 print('Model trained!')

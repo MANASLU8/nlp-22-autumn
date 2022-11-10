@@ -19,7 +19,7 @@ def infer(fitted_model, show: bool):
         model = gensim.models.Word2Vec.load('../../assets/w2v_model')
     else:
         model = fitted_model
-    for word_dict in list_of_dicts:
+    for index, word_dict in enumerate(list_of_dicts):
         result = {'word': word_dict['word'], 'similar': dict(), 'same_field': dict(), 'different': dict()}
         annotations = []
         vector = []
@@ -59,6 +59,7 @@ def infer(fitted_model, show: bool):
             plt.scatter(X, Y, color="red")
             for i, label in enumerate(annotations):
                 plt.annotate(label, (X[i], Y[i]))
+            plt.savefig(f'../../assets/w2vec_scatter_plot_{index}.png')
             plt.show()
 
 
