@@ -31,13 +31,13 @@ def make_sentence_list_by_file():
                         if re.fullmatch(r'[\'!()\\\-\[\]{};@?<>:\",./^&*_|+`%#=~]+', token) \
                                 or token in stops or token not in dictionary:
                             continue
-                        token_list.append(token)
+                        token_list.append(token.lower())
                     else:
-                        sentence_list.append(token_list)
+                        if len(token_list) > 1:
+                            sentence_list.append(token_list)
                         token_list = []
             sentence_list_by_file[category + '/' + filename] = sentence_list
-            sentence_list = []
-
+    print(sentence_list_by_file)
     with open("../../assets/sentence_list_by_file", "wb") as file:
         pickle.dump(sentence_list_by_file, file)
 # with open("../../assets/sentence_list_by_file", "rb") as file:
@@ -55,22 +55,22 @@ class MyCorpus:
 
 
 # task 6, 7
-def w2vec_vectorize(text: str):
-    model = gensim.models.Word2Vec.load('../../assets/w2v_model')
+def w2vec_vectorize(text: str, model):
+    # model = gensim.models.Word2Vec.load('../../assets/w2v_model')
     sentence_list = text_by_sentence_tokenize(text)
     sent_vectors = []
     for sentence in sentence_list:
-        vectors = []
+        word_vectors = []
         for token in sentence:
             if token not in stops:
                 try:
-                    vectors.append(model.wv[token])
+                    word_vectors.append(model.wv[token.lower()])
                 except Exception as e:
                     print(e)
 
         sent_vector = np.zeros(model.vector_size)
-        if (len(vectors) > 0):
-            sent_vector = (np.array([sum(x) for x in zip(*vectors)])) / sent_vector.size
+        if (len(word_vectors) > 0):
+            sent_vector = (np.array([sum(x) for x in zip(*word_vectors)])) / sent_vector.size
         sent_vectors.append(sent_vector)
 
     vector = np.zeros(model.vector_size)
@@ -80,16 +80,17 @@ def w2vec_vectorize(text: str):
     return vector
 
 
-# model fitting
-#make_sentence_list_by_file()
-with open("../../assets/sentence_list_by_file", "rb") as file:
-     sentence_list_by_file = pickle.load(file)
-sentences = MyCorpus(sentence_list_by_file)
-model = gensim.models.Word2Vec(sentences=sentences, window=10, vector_size=100, epochs=5)
-print('Model trained!')
-model.save('../../assets/w2v_model')
-model = gensim.models.Word2Vec.load('../../assets/w2v_model')
+if __name__ == "__main__":
+    #model fitting
+    make_sentence_list_by_file()
+    with open("../../assets/sentence_list_by_file", "rb") as file:
+        sentence_list_by_file = pickle.load(file)
+    sentences = MyCorpus(sentence_list_by_file)
+    model = gensim.models.Word2Vec(sentences=sentences, window=10, vector_size=100, epochs=5)
+    print('Model trained!')
+    model.save('../../assets/w2v_model')
+    #model = gensim.models.Word2Vec.load('../../assets/w2v_model')
 
-#print(model.wv['hello'])
-# for index, word in enumerate(model.wv.index_to_key):
-#     print(f"word #{index}/{len(model.wv.index_to_key)} is {word}")
+    # print(model.wv['hello'])
+    # for index, word in enumerate(model.wv.index_to_key):
+    #     print(f"word #{index}/{len(model.wv.index_to_key)} is {word}")
