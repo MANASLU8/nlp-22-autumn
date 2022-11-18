@@ -16,7 +16,7 @@ def calculate_metrics(y_test, pred):
     print(f'Custom | Library Accuracy: {acc} | {acc_lib}')
     print(f'Custom | Library Precision: {prec} | {prec_lib}')
     print(f'Custom | Library Recall: {rec} | {rec_lib}')
-    print(f'Custom | Library F1: {f1} | {f1_lib}')
+    print(f'Custom | Library F1: {f1} | {f1_lib}\n')
 
 
 def precision(df_conf_matrix):
@@ -33,7 +33,7 @@ def precision(df_conf_matrix):
     #     FN = сумма строки кроме TP
         for item in row:
             FN += item if item != TP else 0
-    #     TN = сумма всех клеток пропуская строку и столбец соотв. лейблу
+    #     TN = сумма всех клеток, пропуская строку и столбец соотв. лейблу
         if (TP + FP) != 0:
             numerator_sum += TP / (TP + FP) * (TP + FN)
     #     numerator_sum += (TP + FP) * TP / (TP + FN)

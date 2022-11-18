@@ -1,39 +1,41 @@
 import re
 import pickle
 import numpy as np
-from sklearn import svm
+from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+from sklearn import svm
 from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import LabelEncoder
-from sklearn.decomposition import PCA
-import matplotlib.pyplot as plt
 from metrics import calculate_metrics, training_time
 from time import time
 
 
-def get_vectors(path):
+def get_vectors(path, surface: bool):
     X = []
     y = []
+    pattern = r'(?<=[a-z])\.' if surface else r'\t'
     with open(path, 'r') as file:
         for line in file:
             vector = []
-            split = re.split(r'\t', line)
-            label = re.split(r'/', split[0])[0]
+            split = re.split(pattern, line)
+            label = split[0] if surface else re.split(r'/', split[0])[0]
             y.append(label)
-            for embedding in split[1:]:
+            embeddings = re.split(r'\t', line)[1:]
+            for embedding in embeddings:
                 embedding = embedding if '\n' not in embedding else embedding[:-1]
                 vector.append(embedding)
             X.append(vector)
     return X, y
 
 
-def get_vectorized():
-    X_train, y_train = get_vectors('../../assets/annotated-corpus/train-embeddings.tsv')
-    X_test, y_test = get_vectors('../../assets/annotated-corpus/test-embeddings.tsv')
+def get_vectorized(surface: bool):
+    X_train, y_train = get_vectors('../../assets/annotated-corpus/train-embeddings.tsv', surface)
+    X_test, y_test = get_vectors('../../assets/annotated-corpus/test-embeddings.tsv', surface)
 
-    vec_data = (X_train, y_train, X_test, y_test)
-    with open('../../assets/vec_data', 'wb') as file:
-        pickle.dump(vec_data, file)
+    return X_train, y_train, X_test, y_test
+    # with open('../../assets/vec_data', 'wb') as file:
+    #     pickle.dump(vec_data, file)
 
 def svm_pipe(X_train, y_train, X_test, y_test, **params):
     clf = svm.SVC(**params)
@@ -43,15 +45,12 @@ def svm_pipe(X_train, y_train, X_test, y_test, **params):
     t2 = time()
     print(f'{clf} training time: {training_time(t1, t2)}')
     pred = clf.predict(X_test)
-    print(pred)
     # pred = [item.split()[-1] for item in pred]
     calculate_metrics(y_test, pred)
 
+
 def main():
-    #get_vectorized()
-    with open('../../assets/vec_data', 'rb') as file:
-        vec_data = pickle.load(file)
-    X_train, y_train, X_test, y_test = vec_data[0], vec_data[1], vec_data[2], vec_data[3]
+    X_train, y_train, X_test, y_test = get_vectorized(surface=True)
     X_train = np.array(X_train, dtype=float)
     X_test = np.array(X_test, dtype=float)
     encoder = LabelEncoder()
