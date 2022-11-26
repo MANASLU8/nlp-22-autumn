@@ -29,7 +29,8 @@ def get_vectors(path, is_surface: bool):
 def get_vectorized_data(is_surface: bool):
     X_train, y_train = get_vectors('../../assets/annotated-corpus/train-embeddings.tsv', is_surface)
     X_test, y_test = get_vectors('../../assets/annotated-corpus/test-embeddings.tsv', is_surface)
-
+    X_train = np.array(X_train, dtype=float)
+    X_test = np.array(X_test, dtype=float)
     return X_train, y_train, X_test, y_test
 
 
@@ -54,22 +55,20 @@ def main():
     for is_surface in is_surface_list:
         for number in n_components:
             print(f"Type: {'surface' if is_surface else 'full'} N_components = {number}")
-
             X_train, y_train, X_test, y_test = get_vectorized_data(is_surface=is_surface)
             if number != 100:
                 pca = PCA(n_components=number)
                 X_train = pca.fit_transform(X_train)
                 X_test = pca.transform(X_test)
                 print('PCA transformed')
-            X_train = np.array(X_train, dtype=float)
-            X_test = np.array(X_test, dtype=float)
+
             encoder = LabelEncoder()
             y_train = encoder.fit_transform(y_train)
             y_test = encoder.fit_transform(y_test)
 
-            ml_pipe(X_train, y_train, X_test, y_test, clf=SVC, kernel='linear')
-            ml_pipe(X_train, y_train, X_test, y_test, clf=SVC, kernel='poly', C=1.0)
-            ml_pipe(X_train, y_train, X_test, y_test, clf=SVC, kernel='rbf', C=1.0, degree=3, gamma='auto')
+            ml_pipe(X_train, y_train, X_test, y_test, clf=SVC, kernel='linear', decision_function_shape='ovr', class_weight='balanced')
+            ml_pipe(X_train, y_train, X_test, y_test, clf=SVC, kernel='poly', C=1.0, class_weight='balanced')
+            ml_pipe(X_train, y_train, X_test, y_test, clf=SVC, kernel='rbf', decision_function_shape='ovr', gamma='auto', class_weight='balanced')
 
             ml_pipe(X_train, y_train, X_test, y_test, clf=MLPClassifier, max_iter=500)
 
