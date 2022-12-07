@@ -29,7 +29,7 @@
 
 - модуль `vectorize.py` класс VectorizationTFIDF метод save_pca_scores - для 4000 предложений из тренировочного сета находятся вектора по которым считается PCA. Объект PCA сохраняется в `pca.pkl`
 
-6. Ставнение векторизации w2v и pca(tfidf)
+6. Сравнение векторизации w2v и pca(tfidf)
 
 - модуль `model_compare.py`
 - результат находится в файле `compare_test.txt`
