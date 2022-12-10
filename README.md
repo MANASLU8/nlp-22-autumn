@@ -14,8 +14,10 @@
 - [Исправление опечаток](/tasks/task-02/README.md)
 - [N-grams](/tasks/task-03/README.md)
 - [Векторизация текста](/tasks/task-04/README.md)
-- [Тематическое моделирование](/tasks/task-05/README.md)
-- [Классификация текстов](/tasks/task-06/README.md)
+- [Классификация текстов](/tasks/task-05/README.md)
+- [Тематическое моделирование](/tasks/task-06/README.md)
+- [Распознавание и синтез речи](/tasks/task-07/README.md)
+
 
 ## Результаты выполнения лабораторных работ
 
@@ -26,3 +28,4 @@
 | [emoji-labeller](/projects/emoji-labeller) | Иванов Иван Иванович |
 | [mansurov-project](/projects/mansurov-project) | Мансуров Юрий Юрьевич |
 | [cake-crusher](/projects/cake-crusher) | Черноусов Евгений Александрович |
+| [petrenko-lab](/projects/petrenko-lab) | Петренко Дмитрий Андреевич |
