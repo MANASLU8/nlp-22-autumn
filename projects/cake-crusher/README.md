@@ -142,3 +142,23 @@ Custom | Library Precision: 0.67 | 0.67
 Custom | Library Recall: 0.68 | 0.68
 Custom | Library F1: 0.67 | 0.67
 ```
+____
+## 5. Topic modelling
+Кластеризация текстов по темам на основе ранее полученных векторных представлений.
+Необходимо запустить `topic_modelling/lda.py`.
+В выводе представлены: обучаемая модель, топ документов для каждой темы, топ слов для каждой темы, метрика perplexity.
+```
+Model: LatentDirichletAllocation(n_components=10)
+
+                                    top1                             top2                              top3
+Topic0     talk.politics.mideast/77370.tsv  talk.politics.mideast/77275.tsv   talk.politics.mideast/77389.tsv
+Topic1              misc.forsale/76812.tsv        sci.electronics/54333.tsv                 sci.med/59564.tsv
+Topic2            comp.windows.x/68198.tsv          comp.graphics/38851.tsv           comp.graphics/39007.tsv
+...
+          Word 0    Word 1        Word 2   Word 3     Word 4
+Topic 0  turkish  armenian        people      gun  armenians
+Topic 1    lines   subject  organization  posting       host       
+Topic 2      use      file     available    data    window
+...
+4687.86
+```
