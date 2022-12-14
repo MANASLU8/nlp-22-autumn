@@ -77,3 +77,8 @@
 |словоформы|T-score|words-T-compare.tsv|
 |лексемы|MI|lexemes-MI-compare.tsv|
 |лексемы|T-score|lexemes-T-compare.tsv|
+
+
+# Vectorization
+
+go to [projects/mansurov-project/source/vectorize/README.md]()
