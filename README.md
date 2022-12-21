@@ -24,3 +24,4 @@
 | Project name | Student name |
 | --- | --- |
 | [emoji-labeller](/projects/emoji-labeller) | Иванов Иван Иванович |
+| [mirik](/projects/mirik) | Огурцов Андрей Юрьевич |
