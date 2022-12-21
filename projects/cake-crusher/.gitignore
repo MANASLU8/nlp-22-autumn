@@ -1,0 +1,5 @@
+.idea
+dataset
+venv
+**/*.pyc
+assets
