@@ -10,6 +10,7 @@ with open('user_text1.txt', 'r') as file:
     text1 = file.read()
 with open('user_text2.txt', 'r') as file:
     text2 = file.read()
+
 sentences1 = ["We are very accustomed to the art of speaking.",
               "We realize that moments of silence can be pretty uncomfortable.",
               text1]

@@ -44,3 +44,41 @@
 для запуска файлов и
 `from .hirschberg import lev_hirschberg, len_lev_hirschberg`
 для запуска тестов.
+
+# Trigrams
+
+## Modules
+
+### get_ngrams.py
+
+Содержит следующие функции:
+- выбор только словоформ/лексем
+- очистка коллекции слов от знаков препинания и стоп слов 
+- подсчет триграмм
+- посчет слов
+
+Результаты каждой функции сохраняются в файлы
+
+В начале файла стоит параметр `data_type_number` позволяющий задать работу с словоформами или лексемами
+
+### calculate_measure.py
+
+Содержит функции для расчета MI и T-score для коллекции слов с помощью реализованного алгоритма или библиотеки `nltk`
+
+В начале файла стоит параметр `data_type_number` позволяющий задать работу с словоформами или лексемами
+
+## Results
+
+Триграммы с наибольшим показателем находятся в файлах.
+
+|тип|значение|файл|
+|-|-|-|
+|словоформы|MI|words-MI-compare.tsv|
+|словоформы|T-score|words-T-compare.tsv|
+|лексемы|MI|lexemes-MI-compare.tsv|
+|лексемы|T-score|lexemes-T-compare.tsv|
+
+
+# Vectorization
+
+go to [projects/mansurov-project/source/vectorize/README.md]()

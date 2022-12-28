@@ -119,3 +119,46 @@ Test 1. time: 0.84 sec %% Word2vec cosine similarity is 0.85
 Для преобразования документов датасета 
 в векторное представление с использованием text2sentence2word2vec применяется скрипт `vectorization/test_vectorizer.py`
 ____
+## 5. Text classification
+Классификация текстов на основе ранее полученных векторных представлений.
+Для прохождения всего процесса машинного обучения (получение данных, обработка данных, обучение моделей, оценка на тестовых данных) необходимо запустить `classification/clf_exps.py`.
+В выводе представлены гиперпараметры, `confusion matrix` и метрики для используемых моделей:
+```
+Training MLPClassifier(max_iter=500)...
+MLPClassifier(max_iter=500) training time: 73.69797086715698
+
+Reference   0     1    2     3    4    5    6
+Actual                                       
+0          79    13    0    40   41   60   86
+1           3  1685   28    78  156    2    3
+2           0   141  156    67   26    0    0
+3           4   128   26  1184  159    6   83
+4          12   345    9   189  896   12  116
+5          31    18    0    26   25  236   62
+6          42    30    2   116  171   68  872
+
+Custom | Library Accuracy: 0.68 | 0.68
+Custom | Library Precision: 0.67 | 0.67
+Custom | Library Recall: 0.68 | 0.68
+Custom | Library F1: 0.67 | 0.67
+```
+____
+## 5. Topic modelling
+Кластеризация текстов по темам на основе ранее полученных векторных представлений.
+Необходимо запустить `topic_modelling/lda.py`.
+В выводе представлены: обучаемая модель, топ документов для каждой темы, топ слов для каждой темы, метрика perplexity.
+```
+Model: LatentDirichletAllocation(n_components=10)
+
+                                    top1                             top2                              top3
+Topic0     talk.politics.mideast/77370.tsv  talk.politics.mideast/77275.tsv   talk.politics.mideast/77389.tsv
+Topic1              misc.forsale/76812.tsv        sci.electronics/54333.tsv                 sci.med/59564.tsv
+Topic2            comp.windows.x/68198.tsv          comp.graphics/38851.tsv           comp.graphics/39007.tsv
+...
+          Word 0    Word 1        Word 2   Word 3     Word 4
+Topic 0  turkish  armenian        people      gun  armenians
+Topic 1    lines   subject  organization  posting       host       
+Topic 2      use      file     available    data    window
+...
+4687.86
+```
