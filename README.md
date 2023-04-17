@@ -31,4 +31,4 @@
 | [cake-crusher](/projects/cake-crusher) | Черноусов Евгений Александрович |
 | [petrenko-lab](/projects/petrenko-lab) | Петренко Дмитрий Андреевич |
 | [didur-nlp](/projects/didur-nlp) | Дидур Давид Дмитриевич |
-| [shiyanna](/projects/shiyanna) | Шиян Анна Сергеевна |
+| [shiyan_v3](/projects/shiyan_v3) | Шиян Анна Сергеевна |
